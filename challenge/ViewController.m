@@ -21,60 +21,61 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    self.todos = [[NSMutableArray alloc] init];
-    
+  [super viewDidLoad];
+  // Do any additional setup after loading the view, typically from a nib.
+  self.todos = [[NSMutableArray alloc] init];
+  
 }
 
 
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+  [super didReceiveMemoryWarning];
+  // Dispose of any resources that can be recreated.
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section; {
-    
-    return self.todos.count;
-    
+  
+  return self.todos.count;
+  
 }
 
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
 // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath; {
-    
-    NSString *cellIdentifier = @"ListTableViewCell";
-    ListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (nil == cell) {
-        
-        cell = [[ListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        
-    }
-    NSString *todoText = self.todos[indexPath.row];
-    cell.titleLabel.text = todoText;
-    return cell;
-    
+  
+  NSString *cellIdentifier = @"ListTableViewCell";
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+  //    if (nil == cell) {
+  //
+  //        cell = [[ListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+  //
+  //    }
+  //    NSString *todoText = self.todos[indexPath.row];
+  cell.textLabel.text = self.todos[indexPath.row];
+  cell.detailTextLabel.text = @"Details";
+  cell.accessoryType = UITableViewCellAccessoryCheckmark;
+  return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath; {
-    
-    NSLog(@"Hello i was touched: %@", indexPath);
-    
+
+  NSLog(@"Hello i was touched: %@", indexPath);
+  
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    UINavigationController *nav = segue.destinationViewController;
-    AddItemViewController *addVC = nav.viewControllers[0];
-    addVC.delegate = self;
-    
+  
+  UINavigationController *nav = segue.destinationViewController;
+  AddItemViewController *addVC = nav.viewControllers[0];
+  addVC.delegate = self;
+  
 }
 -(void)didSaveNewTodo:(NSString *)todoText {
-    
-    [self.todos addObject:todoText];
-    [self.tableView reloadData];
-    
+  
+  [self.todos addObject:todoText];
+  [self.tableView reloadData];
+  
 }
 
 
