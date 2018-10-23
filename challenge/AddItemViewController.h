@@ -18,6 +18,7 @@
 
 @property (nonatomic, strong) id <AddItemViewControllerDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *save;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)save:(id)sender;

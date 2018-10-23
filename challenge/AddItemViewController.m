@@ -25,26 +25,26 @@
 }
 
 /*
-#pragma mark - Navigation
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-- (IBAction)cancel:(id)sender {
-    
+- (IBAction)cancel:(id)sender
+{
     [self dismissViewControllerAnimated:true completion:nil];
-    
 }
 
 - (IBAction)save:(id)sender {
-    
-    [self.delegate didSaveNewTodo:self.textField.text];
-    [self dismissViewControllerAnimated:true completion:nil];
-
-    
+    if([self.textField.text length] != 0){
+        [self.delegate didSaveNewTodo:self.textField.text];
+        [self dismissViewControllerAnimated:true completion:nil];
+    }else{
+        NSLog(@"Campo vazio, favor preencher");
+    }
 }
 @end
